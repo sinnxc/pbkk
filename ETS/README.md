@@ -1,10 +1,8 @@
 # Evaluasi Tengah Semester Pemrograman Berbasis Kerangka Kerja
 
-Nama: Ahsin Khuluqil Karim
-
-NRP: `[NRP]`
-
-Kelas: Pemrograman Berbasis Kerangka Kerja D
+| Nama | NRP | Kelas |
+| ---- | ---- | ---- |
+| Ahsin Khuluqil Karim | 5025241063 | Pemrograman Berbasis Kerangka Kerja D |
 
 Topik: Evaluasi Tengah Semester
 
@@ -15,11 +13,11 @@ Topik: Evaluasi Tengah Semester
 - **Link Repository GitHub:**
   [https://github.com/sinnxc/pbkk/tree/main/ETS](https://github.com/sinnxc/pbkk/tree/main/ETS)
 - **Link Video Demo:**
-  `[Link Video Demo]` — belum tersedia
+  [Link Video Demo]()
 
 ---
 
-Pada ETS kali ini saya membuat aplikasi desktop bernama **SIBUMI** (Sistem Informasi Booking dan Manajemen Pendakian). Aplikasi ini dipakai petugas basecamp untuk mencatat pemesanan izin pendakian (simaksi), mengontrol kuota harian tiap jalur, memantau status pendaki yang sedang di gunung, dan melihat rekap pendapatan tiket. Alurnya sederhana: rancang dulu database di SQL Server, lalu buat aplikasi WPF yang membaca dan menulis ke database tersebut.
+Pada ETS kali ini kami membuat aplikasi desktop bernama **SIBUMI (Sistem Informasi Booking dan Manajemen Pendakian)**. Aplikasi ini dipakai petugas basecamp untuk mencatat pemesanan izin pendakian (simaksi), mengontrol kuota harian tiap jalur, memantau status pendaki yang sedang di gunung, dan melihat rekap pendapatan tiket. Alurnya sederhana: rancang dulu database di SQL Server, lalu buat aplikasi WPF yang membaca dan menulis ke database tersebut.
 
 ## Bagian 1: Merancang Database di SQL Server
 
