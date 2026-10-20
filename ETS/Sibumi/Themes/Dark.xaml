@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="BgBrush"            Color="#0D1411"/>
+    <SolidColorBrush x:Key="SurfaceBrush"       Color="#151F1A"/>
+    <SolidColorBrush x:Key="Surface2Brush"      Color="#1B2822"/>
+    <SolidColorBrush x:Key="LineBrush"          Color="#26352E"/>
+    <SolidColorBrush x:Key="HoverBrush"         Color="#1F2E27"/>
+    <SolidColorBrush x:Key="SelectedBrush"      Color="#1C3A2E"/>
+    <SolidColorBrush x:Key="TextBrush"          Color="#E8F0EC"/>
+    <SolidColorBrush x:Key="MutedBrush"         Color="#8DA196"/>
+    <SolidColorBrush x:Key="AccentBrush"        Color="#3DD598"/>
+    <SolidColorBrush x:Key="OnAccentBrush"      Color="#06281B"/>
+    <SolidColorBrush x:Key="DangerBrush"        Color="#F26B7B"/>
+    <SolidColorBrush x:Key="WarningBrush"       Color="#F5B547"/>
+    <SolidColorBrush x:Key="InfoBrush"          Color="#5AA2FF"/>
+    <SolidColorBrush x:Key="ScrollThumbBrush"   Color="#33463D"/>
+
+    <SolidColorBrush x:Key="SidebarBrush"       Color="#09100D"/>
+    <SolidColorBrush x:Key="SidebarTextBrush"   Color="#E8F0EC"/>
+    <SolidColorBrush x:Key="SidebarMutedBrush"  Color="#7E9488"/>
+    <SolidColorBrush x:Key="SidebarHoverBrush"  Color="#131E19"/>
+    <SolidColorBrush x:Key="SidebarActiveBrush" Color="#1A2D25"/>
+    <SolidColorBrush x:Key="SidebarBarBrush"    Color="#3DD598"/>
+</ResourceDictionary>

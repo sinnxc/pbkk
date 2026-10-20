@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Sibumi.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Style="{StaticResource Page}">
+    <StackPanel MaxWidth="680" HorizontalAlignment="Left">
+        <TextBlock Text="Pengaturan" Style="{StaticResource H1}"/>
+        <TextBlock Text="Atur tampilan dan lihat profil akun." Style="{StaticResource Muted}" Margin="0,4,0,22"/>
+
+        <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="Tampilan" Style="{StaticResource H2}"/>
+                <TextBlock Text="Pilihan tema disimpan di komputer ini." Style="{StaticResource Muted}" Margin="0,2,0,16"/>
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton GroupName="theme" Style="{StaticResource ThemeCard}" Tag="&#xE706;" Content="Terang" IsChecked="{Binding IsLight}"/>
+                    <RadioButton GroupName="theme" Style="{StaticResource ThemeCard}" Tag="&#xE708;" Content="Gelap" IsChecked="{Binding IsDark}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="Profil" Style="{StaticResource H2}" Margin="0,0,0,16"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Border Width="56" Height="56" CornerRadius="28" Background="{DynamicResource AccentBrush}">
+                        <TextBlock Text="{Binding Initial}" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource OnAccentBrush}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Nama}" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Role}" Style="{StaticResource Muted}"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text="Username" Style="{StaticResource FieldLabel}"/>
+                <TextBlock Text="{Binding Username}"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

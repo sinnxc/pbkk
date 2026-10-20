@@ -1,0 +1,129 @@
+<UserControl x:Class="Sibumi.Views.JalurView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Style="{StaticResource Page}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="360"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.ColumnSpan="2" Margin="0,0,0,22">
+            <TextBlock Text="Jalur Pendakian" Style="{StaticResource H1}"/>
+            <TextBlock Text="Atur kuota harian dan tarif tiap jalur. Hanya untuk admin." Style="{StaticResource Muted}" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource Card}" Padding="4" Margin="0,0,16,0">
+            <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding Selected, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="JALUR" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding NamaJalur}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding NamaGunung}" Style="{StaticResource Muted}" FontSize="12"/>
+                                        <TextBlock Text=" • ⛔ Gunung Ditutup" FontSize="11" Foreground="{DynamicResource DangerBrush}" Margin="6,0,0,0"
+                                                   Visibility="{Binding GunungBisaDidaki, Converter={StaticResource NotBoolToVis}}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="KUOTA/HARI" Binding="{Binding KuotaHarian}" Width="110"/>
+                    <DataGridTextColumn Header="TARIF" Binding="{Binding TarifPerOrang, StringFormat='Rp {0:N0}', ConverterCulture=id-ID}" Width="120"/>
+                    <DataGridTemplateColumn Header="STATUS" Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Left">
+                                    <Border CornerRadius="12" Opacity="0.15">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="{DynamicResource MutedBrush}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                        <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                    <TextBlock FontSize="12" FontWeight="SemiBold" Padding="12,4">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="Nonaktif"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                        <Setter Property="Text" Value="Aktif"/>
+                                                        <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource Card}" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Text="{Binding FormTitle}" Style="{StaticResource H2}" Margin="0,0,0,18"/>
+
+                <TextBlock Text="Gunung" Style="{StaticResource FieldLabel}"/>
+                <ComboBox ItemsSource="{Binding Gunungs}" SelectedItem="{Binding FGunung}" Margin="0,0,0,14">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Display}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Nama jalur" Style="{StaticResource FieldLabel}"/>
+                <TextBox Text="{Binding FNama, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14"/>
+
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Kuota harian" Style="{StaticResource FieldLabel}"/>
+                        <TextBox Text="{Binding FKuota, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Tarif per orang (Rp)" Style="{StaticResource FieldLabel}"/>
+                        <TextBox Text="{Binding FTarif, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </Grid>
+
+                <CheckBox Content="Jalur aktif (bisa dibooking)" IsChecked="{Binding FAktif}" Margin="0,0,0,18"/>
+
+                <Grid Margin="0,0,0,16" Visibility="{Binding HasError, Converter={StaticResource BoolToVis}}">
+                    <Border Background="{DynamicResource DangerBrush}" Opacity="0.12" CornerRadius="10"/>
+                    <TextBlock Text="{Binding Error}" Foreground="{DynamicResource DangerBrush}" TextWrapping="Wrap" Padding="14,10"/>
+                </Grid>
+
+                <Button Content="Simpan" Style="{StaticResource Primary}" Command="{Binding SaveCommand}" Margin="0,0,0,8"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Jalur Baru" Command="{Binding NewCommand}"/>
+                    <Button Grid.Column="2" Content="Hapus" Style="{StaticResource Danger}" Command="{Binding DeleteCommand}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
