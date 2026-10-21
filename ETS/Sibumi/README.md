@@ -130,3 +130,5 @@ Pengelolaan izin pendakian di banyak basecamp masih dilakukan secara manual dan 
 ---
 
 ## 3. Poster Infografis (1 Halaman)
+
+![](infografis.png)
