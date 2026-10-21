@@ -13,7 +13,7 @@ Topik: Evaluasi Tengah Semester
 - **Link Repository GitHub:**
   [https://github.com/sinnxc/pbkk/tree/main/ETS](https://github.com/sinnxc/pbkk/tree/main/ETS)
 - **Link Video Demo:**
-  [Link Video Demo]()
+  [Link Video Demo](https://youtu.be/bXBVLyUpcVo)
 
 ---
 
