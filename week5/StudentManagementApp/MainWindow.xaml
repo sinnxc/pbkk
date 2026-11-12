@@ -1,0 +1,101 @@
+<Window x:Class="StudentManagementApp.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="Student Management System" Width="1180" Height="860"
+ MinWidth="760" MinHeight="560" WindowStartupLocation="CenterScreen"
+ FontFamily="Segoe UI" FontSize="14" Background="#FAFAFA" Foreground="#202720"
+ Loaded="Window_Loaded">
+ <Window.Resources>
+  <Style TargetType="TextBox"><Setter Property="Padding" Value="8,6"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+  <Style TargetType="ComboBox"><Setter Property="Padding" Value="8,6"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+  <Style TargetType="Button"><Setter Property="Padding" Value="14,8"/><Setter Property="MinHeight" Value="38"/><Setter Property="Margin" Value="0,0,8,8"/></Style>
+  <Style TargetType="Label"><Setter Property="Padding" Value="0"/></Style>
+ </Window.Resources>
+ <Grid Margin="24">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <StackPanel Margin="0,0,0,20">
+   <TextBlock Text="Student Management System" FontSize="26" FontWeight="Bold"/>
+   <TextBlock Text="Panel informasi mahasiswa dengan MVVM dan data binding" Margin="0,6,0,8"/>
+   <TextBlock Text="{Binding StorageDescription}" TextWrapping="Wrap" Foreground="#37543F"/>
+  </StackPanel>
+  <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+   <StackPanel>
+    <Border Background="#F1FFF7" BorderBrush="#A8C7B3" BorderThickness="1" CornerRadius="10" Padding="18" Margin="0,0,0,20">
+     <Grid>
+      <Grid.ColumnDefinitions><ColumnDefinition Width="1.4*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <StackPanel Grid.RowSpan="2" Margin="0,0,16,0">
+       <TextBlock Text="INFORMASI" Foreground="#126B37" FontSize="20" FontWeight="Bold"/>
+       <TextBlock Text="Total Mahasiswa" Margin="0,16,0,4"/>
+       <TextBlock Text="{Binding TotalStudents}" FontSize="40" FontWeight="Bold" AutomationProperties.Name="Total Mahasiswa"/>
+      </StackPanel>
+      <StackPanel Grid.Column="1" Margin="12,4,12,16">
+       <TextBlock Text="Informatika"/><TextBlock Text="{Binding TotalInformatika}" FontSize="24" FontWeight="SemiBold" AutomationProperties.Name="Total Informatika"/>
+      </StackPanel>
+      <StackPanel Grid.Column="2" Margin="12,4,0,16">
+       <TextBlock Text="Sistem Informasi" TextWrapping="Wrap"/><TextBlock Text="{Binding TotalSistemInformasi}" FontSize="24" FontWeight="SemiBold" AutomationProperties.Name="Total Sistem Informasi"/>
+      </StackPanel>
+      <StackPanel Grid.Row="1" Grid.Column="1" Margin="12,0,12,0">
+       <TextBlock Text="Laki-laki"/><TextBlock Text="{Binding TotalLakiLaki}" FontSize="24" FontWeight="SemiBold" AutomationProperties.Name="Total Laki-laki"/>
+      </StackPanel>
+      <StackPanel Grid.Row="1" Grid.Column="2" Margin="12,0,0,0">
+       <TextBlock Text="Perempuan"/><TextBlock Text="{Binding TotalPerempuan}" FontSize="24" FontWeight="SemiBold" AutomationProperties.Name="Total Perempuan"/>
+      </StackPanel>
+     </Grid>
+    </Border>
+    <Grid>
+     <Grid.ColumnDefinitions><ColumnDefinition Width="250"/><ColumnDefinition Width="20"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+     <StackPanel IsEnabled="{Binding IsReady}">
+      <TextBlock Text="Tambah Mahasiswa" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,14"/>
+      <Label Content="_NIM" Target="{Binding ElementName=txtNim}"/>
+      <TextBox x:Name="txtNim" Text="{Binding NIM, UpdateSourceTrigger=PropertyChanged}" MaxLength="20"/>
+      <Label Content="N_ama" Target="{Binding ElementName=txtNama}"/>
+      <TextBox x:Name="txtNama" Text="{Binding Nama, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+      <Label Content="_Jurusan" Target="{Binding ElementName=cmbJurusan}"/>
+      <ComboBox x:Name="cmbJurusan" ItemsSource="{Binding JurusanOptions}" SelectedItem="{Binding Jurusan}"/>
+      <Label Content="_Gender" Target="{Binding ElementName=cmbGender}"/>
+      <ComboBox x:Name="cmbGender" ItemsSource="{Binding GenderOptions}" SelectedItem="{Binding Gender}"/>
+      <Label Content="_Email (opsional)" Target="{Binding ElementName=txtEmail}"/>
+      <TextBox x:Name="txtEmail" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+      <WrapPanel>
+       <Button Content="_Simpan" Command="{Binding SaveCommand}"/>
+       <Button Content="_Reset" Command="{Binding ResetCommand}"/>
+      </WrapPanel>
+     </StackPanel>
+     <Grid Grid.Column="2">
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <DockPanel LastChildFill="False">
+       <TextBlock Text="Daftar Mahasiswa" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+       <Button Content="_Muat Ulang" Command="{Binding LoadCommand}" DockPanel.Dock="Right" Margin="8,0,0,12"/>
+      </DockPanel>
+      <Grid Grid.Row="1" MinHeight="230">
+       <DataGrid x:Name="studentGrid" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}"
+        IsEnabled="{Binding IsReady}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+        SelectionMode="Single" SelectionUnit="FullRow" HeadersVisibility="Column"
+        HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutomationProperties.Name="Daftar Mahasiswa">
+        <DataGrid.Columns>
+         <DataGridTextColumn Header="NIM" Binding="{Binding NIM}" Width="120"/>
+         <DataGridTextColumn Header="Nama" Binding="{Binding Nama}" Width="180"/>
+         <DataGridTextColumn Header="Jurusan" Binding="{Binding Jurusan}" Width="140"/>
+         <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="100"/>
+         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+        </DataGrid.Columns>
+       </DataGrid>
+       <TextBlock Text="Belum ada data mahasiswa." HorizontalAlignment="Center" VerticalAlignment="Center"
+        IsHitTestVisible="False" Visibility="{Binding IsEmpty, Converter={StaticResource BoolVisibility}}"/>
+      </Grid>
+      <StackPanel Grid.Row="2" Margin="0,12,0,0">
+       <Button Content="_Hapus Terpilih" Command="{Binding DeleteCommand}" HorizontalAlignment="Left"/>
+       <TextBlock Text="Pilih satu baris untuk menghapus mahasiswa. Statistik diperbarui setelah Simpan, Hapus, atau Muat Ulang."
+        TextWrapping="Wrap" Foreground="#465046"/>
+      </StackPanel>
+     </Grid>
+    </Grid>
+   </StackPanel>
+  </ScrollViewer>
+  <StackPanel Grid.Row="2" Margin="0,16,0,0">
+   <ProgressBar IsIndeterminate="True" Height="4" Margin="0,0,0,8" Visibility="{Binding IsBusy, Converter={StaticResource BoolVisibility}}"/>
+   <TextBlock Text="{Binding Status}" TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite"/>
+  </StackPanel>
+ </Grid>
+</Window>
