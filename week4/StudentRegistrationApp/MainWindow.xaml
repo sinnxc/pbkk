@@ -1,0 +1,70 @@
+﻿<Window x:Class="StudentRegistrationApp.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="Student Registration" Width="1060" Height="600" MinWidth="940" MinHeight="540"
+ WindowStartupLocation="CenterScreen" Background="#F5F5F5" FontFamily="Segoe UI" FontSize="14">
+ <Window.Resources>
+  <Style TargetType="TextBox"><Setter Property="Padding" Value="8,6"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+  <Style TargetType="Button"><Setter Property="Padding" Value="16,8"/><Setter Property="Margin" Value="0,0,8,0"/><Setter Property="MinWidth" Value="90"/></Style>
+  <Style TargetType="Label"><Setter Property="Padding" Value="0"/><Setter Property="HorizontalContentAlignment" Value="Left"/></Style>
+ </Window.Resources>
+ <Grid Margin="28">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <StackPanel Margin="0,0,0,24">
+   <TextBlock Text="Student Registration" FontSize="28" FontWeight="Bold"/>
+   <TextBlock Text="Registrasi dan pengelolaan data mahasiswa" Margin="0,6,0,0" Foreground="#444444"/>
+  </StackPanel>
+  <Grid Grid.Row="1">
+   <Grid.ColumnDefinitions><ColumnDefinition Width="340"/><ColumnDefinition Width="28"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+   <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Margin="0,0,12,0">
+     <Label Content="_NIM" Target="{Binding ElementName=txtNim}"/>
+     <TextBox x:Name="txtNim" MaxLength="30"/>
+     <Label Content="_Nama Lengkap" Target="{Binding ElementName=txtNama}"/>
+     <TextBox x:Name="txtNama" MaxLength="120"/>
+     <Label Content="_Program Studi" Target="{Binding ElementName=cmbProdi}"/>
+     <ComboBox x:Name="cmbProdi" Padding="8,6" Margin="0,4,0,12">
+      <ComboBoxItem Content="Teknik Informatika"/><ComboBoxItem Content="Sistem Informasi"/>
+      <ComboBoxItem Content="Manajemen"/><ComboBoxItem Content="Akuntansi"/>
+     </ComboBox>
+     <TextBlock Text="Jenis Kelamin"/>
+     <StackPanel Orientation="Horizontal" Margin="0,8,0,16">
+      <RadioButton x:Name="rbLaki" Content="_Laki-laki" GroupName="Gender" Margin="0,0,20,0"/>
+      <RadioButton x:Name="rbPerempuan" Content="_Perempuan" GroupName="Gender"/>
+     </StackPanel>
+     <WrapPanel Margin="0,4,0,12">
+      <Button Content="_Simpan" Click="BtnSimpan_Click" Background="#205A88" Foreground="White"/>
+      <Button Content="_Reset" Click="BtnReset_Click"/>
+     </WrapPanel>
+    </StackPanel>
+   </ScrollViewer>
+   <Grid Grid.Column="2">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <TextBlock Text="Data Mahasiswa" FontSize="20" FontWeight="SemiBold"/>
+    <StackPanel Grid.Row="1" Margin="0,12,0,0">
+     <Label Content="_Cari NIM atau nama" Target="{Binding ElementName=txtCari}"/>
+     <TextBox x:Name="txtCari" TextChanged="TxtCari_TextChanged"/>
+    </StackPanel>
+    <Grid Grid.Row="2">
+     <ListBox x:Name="lstMahasiswa" SelectionChanged="LstMahasiswa_SelectionChanged"
+       ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+      <ListBox.ItemTemplate><DataTemplate><StackPanel Margin="6,8">
+       <TextBlock Text="{Binding Ringkasan}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+       <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+      </StackPanel></DataTemplate></ListBox.ItemTemplate>
+     </ListBox>
+     <TextBlock x:Name="txtKosong" Text="Belum ada data mahasiswa." IsHitTestVisible="False"
+       VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#444444"/>
+    </Grid>
+    <DockPanel Grid.Row="3" Margin="0,14,0,0" LastChildFill="False">
+     <Button Content="_Hapus" Click="BtnHapus_Click"/>
+     <TextBlock x:Name="txtJumlah" VerticalAlignment="Center" Text="Jumlah Mahasiswa: 0"/>
+    </DockPanel>
+   </Grid>
+  </Grid>
+  <TextBlock Grid.Row="2" Margin="0,18,0,0" TextWrapping="Wrap"
+   Text="Data disimpan selama aplikasi terbuka. Pilih mahasiswa untuk mengedit, lalu klik Simpan." Foreground="#444444"/>
+ </Grid>
+</Window>
+
+
